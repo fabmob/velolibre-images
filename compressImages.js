@@ -5,6 +5,7 @@ const makeDir = require("make-dir");
 const writeFile = util.promisify(fs.writeFile);
 const imagemin = require("imagemin");
 const imageminWebp = require("imagemin-webp");
+const imageminJpegAutorotate = require("./imagemin-jpeg-autorotate");
 
 const srcdir = "vl1";
 const distdir = "dist";
@@ -12,6 +13,9 @@ const distdir = "dist";
 const compress = (quality = 100, width, suffix) =>
   imagemin([srcdir + "/**/*.{jpg,png}"], {
     plugins: [
+      imageminJpegAutorotate({
+        disable: false,
+      }),
       imageminWebp({
         metadata: "all",
         quality: quality,

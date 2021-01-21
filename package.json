@@ -11,7 +11,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^3.7.2",
     "imagemin": "^7.0.1",
-    "imagemin-webp": "^6.0.0"
+    "imagemin-webp": "^6.0.0",
+    "is-jpg": "^2.0.0",
+    "jpeg-autorotate": "^7.1.1"
   }
 }
