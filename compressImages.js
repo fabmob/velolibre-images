@@ -1,8 +1,8 @@
 const imagemin = require("imagemin");
 const imageminWebp = require("imagemin-webp");
 
-imagemin(["./assets/images/*.{jpg,png}"], {
-  destination: "./assets/images/webp/",
+imagemin(["./vl1/**/*.{jpg,png}"], {
+  destination: "./dist/",
   plugins: [
     imageminWebp({
       //   quality: 90
