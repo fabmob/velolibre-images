@@ -9,24 +9,32 @@ const imageminWebp = require("imagemin-webp");
 const srcdir = "vl1";
 const distdir = "dist";
 
-imagemin([srcdir + "/**/*.{jpg,png}"], {
-  plugins: [
-    imageminWebp({
-      //   quality: 90
-      //   ,
-      //   resize: {
-      //     width: 1000,
-      //     height: 0
-      //   }
-    }),
-  ],
-}).then((files) =>
-  files.forEach(async (v) => {
-    let source = path.parse(v.sourcePath);
-    v.destinationPath = `${source.dir.replace(srcdir, distdir)}/${
-      source.name
-    }${".webp"}`;
-    await makeDir(path.dirname(v.destinationPath));
-    await writeFile(v.destinationPath, v.data);
-  })
-);
+const compress = (quality = 100, width, suffix) =>
+  imagemin([srcdir + "/**/*.{jpg,png}"], {
+    plugins: [
+      imageminWebp({
+        metadata: "all",
+        quality: quality,
+        ...(width
+          ? {
+              resize: {
+                width,
+                height: 0,
+              },
+            }
+          : {}),
+      }),
+    ],
+  }).then((files) =>
+    files.forEach(async (v) => {
+      let source = path.parse(v.sourcePath);
+      v.destinationPath = `${source.dir.replace(srcdir, distdir)}/${
+        source.name
+      }${suffix ? "." + suffix : ""}.webp`;
+      await makeDir(path.dirname(v.destinationPath));
+      await writeFile(v.destinationPath, v.data);
+    })
+  );
+
+compress();
+compress(80, 600, "medium");
