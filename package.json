@@ -8,5 +8,8 @@
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "imagemin": "^7.0.1",
+    "imagemin-webp": "^6.0.0"
+  }
 }
